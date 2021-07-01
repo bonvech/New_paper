@@ -12,13 +12,11 @@
 \usepackage[russian,english]{babel}   % убрать русский перед отправкой статьи % влияет на язык подписей к рисункам и таблицам
 \usepackage[modulo]{lineno}
 \usepackage{graphicx}
-\graphicspath{figs/}
+\graphicspath{{figures/}}
 %\usepackage[pdftex, backref, colorlinks]{hyperref}
 \usepackage{todonotes}
 %http://ctan.math.washington.edu/tex-archive/macros/latex/contrib/easy-todo/easy-todo.pdf
 %\usepackage[enable]{easy-todo}
-
-
 
 \title{A drone-borne installation for studying the composition of cosmic rays in the range of 1--1000~PeV by registering the reflected Cherenkov light of EAS.}
 \ShortTitle{SPHERE-3 project} 
@@ -70,11 +68,14 @@ Here we present the current technical design of the SPHERE project’s new detec
 \maketitle
 
 \listoftodos[Notes]
+
 \tableofcontents
 
 \section{Introduction}
 
-The experimental technique of detecting of the reflected Vavilov--Cherenkov radiation from extensive air showers has been known since the 70s of the last century when it was proposed by Russian academician Alexander Chudakov~\cite{chu74:VKKL74}, whose centenary is celebrated this year. 
+Vavilov-Cherenkov radiation (or Chereknov light, CL) is produced by charge particles of an extensive air shower (EAS) in the Earth atmosphere.
+
+The experimental technique of detecting of the reflected Vavilov--Cherenkov radiation from extensive air showers (EAS) has been known since the 70s of the last century when it was proposed by Russian academician Alexander Chudakov~\cite{chu74:VKKL74}, whose centenary is celebrated this year. 
 
 \todoi{Написать введение. (Бонвеч)}
 
@@ -82,39 +83,66 @@ The experimental technique of detecting of the reflected Vavilov--Cherenkov radi
 Про проект СФЕРА. Ссылка на СФЕРУ-1. 
 Помянуть "успехи" СФЕРЫ-2. Написать в духе "продолжение и развитие". (Бонвеч)
 
+%The general idea of the SPHERE experiment is discussed: basic idea of reflected Cherenkov light registration method and it's previous implementations in the SPHERE experiment, as well as possible additions to the method that enhance its accuracy and sensitivity.
+
+Cherenkov light, emitted when high-energy particles travel through a medium, has long been known as an important EAS registration channel. In particular, Cherenkov light lateral distribution is indicative of the shower development details and can be used to infer both the energy and the mass of the primary particle~\cite[e.g.][]{Budnev2013}.
+
+
+
+
+\subsection{Reflected Cherenkov light}
+
+The main method of Cherenkov light registration in the SPHERE project follows the idea of A. Chudakov: EAS Cherenkov light is first reflected from the <<screen>> and then observed by a detector. In previous SPHERE implementations, the snowfields of Antarctica and the snow-covered ice of Lake Baikal played the role of such screen. Snow has many desirable qualities in this regard, including a high overall albedo (up to $95\%$) and an almost isotropic bidirectional reflectance distribution \citep{Warren1982}.
+
+To observe the reflected Cherenkov light the compact detector is lifted above the snow surface. The detector employs the Schmidt camera technique and consists of a spherical mirror with a mosaic of sensitive elements near its focal surface. In previous SPHERE implementations detectors were lifted by a balloon to an altitude of 400--1000~m with photomultipier tubes (PMT) serving as sensititve elements~\cite{Ant15a, Ant19, Ant20}. In the present paper we discuss the development of the method with a drone (UAV) as a lifting apparatus and a silicon photomultipliers (SiPM) as sensitive elements. The sketch of the technique is illustrated on Figure.~\ref{fig:DirectCL}.
+
+
 \begin{figure}
-    \centering
-    \includegraphics[width=.3\textwidth]{figs/DirectCL.pdf}
-    \caption{The registration method scheme.}
-    \label{fig:overview}
+    \begin{minipage}[b]{.42\textwidth}
+    \centering 
+        \includegraphics[height=.365\textheight]{DirectCL.pdf}
+        \caption{Scheme of direct and reflected Cherenkov light from EAS.}
+        \label{fig:DirectCL}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{.55\textwidth}
+        \centering 
+        \includegraphics[height=.2\textheight, angle=0]{Sphere3optic.eps}
+        \includegraphics[height=.2\textheight, angle=0]{Sphere3spot1.eps}
+        \includegraphics[height=.2\textheight, angle=-90]{Sphere3spot.eps}
+        \caption{Preliminary version of the optical system with spot diagram analysis.}
+        \label{fig:lightspots}
+\todoi{Переделать рис. 2 для апертуры площадью 1м (Чернов) + переделать в печатный вид (Подгрудков)}
+    \end{minipage}
 \end{figure}
 
-\section{Registration method}
 
-The general idea of the SPHERE experiment is discussed: basic idea of reflected Cherenkov light registration method and it's previous implementations in the SPHERE experiment, as well as possible additions to the method that enhance its accuracy and sensitivity.
+The optical schema of the experiment results in each sensitive element receiving light from a certain solid angle, which, in turn, correspond to a certain area on the ground. This correspondence is not static and depends on momentary position and orientation of the detector. We term the area of the surface, observed by a particular sensitive element at a given time it's field of view (FOV). An analogy can be drawn with a ground array technique for direct EAS Cherenkov light detection like the one used in the Tunka experiment~\cite{Berezhnev2012}. Each sensitive element's FOV is analogous to a single detector in the array and the combined FOV of the mosaic is analogous to the entire array. The main difference between the two cases is the size of the detectors/FOV relative to the distance between them: in the SPHERE experiment the FOV is typically 10--100~m in diameter depending on detector altitude, which is comparable or even greater than the distance between the centers of two adjacent FOVs and in fact adjacent FOVs almost always overlap. This means that SPHERE detector doesn't sample CL LDF at scattered points, but measures its integrals over relatively large areas, with each point within the detector's overall FOV contributing to at least one such integral. This allows the SPHERE detector to be sensitive to the near-axis region of the shower which presents opportunity for improved precision of Cherenkov light lateral distribution reconstruction.
 
-Cherenkov light, emitted when high-energy particles travel through a medium, has long been known as an important EAS registration channel. In particular, Cherenkov light lateral distribution is indicative of the shower development details and can be used to infer both the energy and the mass of the primary particle \citep[e.g.][]{Budnev2013}.
-
-\subsection{Reflected CL}
-
-In the SPHERE experiment Cherenkov light is observed indirectly, after it is reflected from the `screen'. In previous SPHERE experiments, the snowfields of Antarctica and the snow-covered ice of Lake Baikal played the role of such screen. Snow has many desirable qualities in this respect, including a high overall albedo (up to $95\%$) and an almost isotropic bidirectional reflectance distribution \citep{Warren1982}.
-
-To observe reflected Cherenkov light, a compact detector is lifted above the snow surface. The detector employs Schmidt camera technique and consists of a spherical mirror with a mosaic of sensitive elements near its focal surface. In previout SPHERE implementations detectors were lifted by a balloon to an altitude of $400$ -- $1000$~m and photomultipier tubes (PMT) served as sensititve elements. In the present paper we discuss the development of the method with a drone (UAV) as a lifting apparatus and a silicon photomultipliers (SiPM) as sensitive elements. This proposed technique is illustrated on Figure.~\ref{fig:overview}.
-
-The optical schema of the experiment results in each sensitive element receiving light from a certain solid angle, which, in turn, correspond to a certain area on the ground. This correspondence is established on event-by-event basis, given momentary position and oriantation of the detector. We term the area of the surface, observed by a particular sensitive element it's field of view (FOV). An analogy can be drawn with a ground array technique for direct EAS Cherenkov light detection like the one used in the Tunka experiment \citep{Berezhnev2012}. Each sensitive element's FOV is analogous to a single detector in the array and the combined FOV of the mosaic is analogous to the entire array. The main difference between the two cases is the size of the detectors/FOV relative to the distance between them: in the SPHERE experiment the FOV is typically $10$ -- $100$~m in diameter depending on detector altitude, which is comparable or even greater than the distance between the centers of two adjacent FOVs and in fact adjacent FOVs almost always overlap. This means that SPHERE detector doesn't sample CL LDF at scattered points, but measures its integrals over relatively large areas, with each point within the detector's overall FOV contributing to at least one such integral. Thus, the SPHERE detector is sensitive to the near-axis region of the shower, which ground array detectors are incapable of.
-
-% opportunities for improved precision of Cherenkov light lateral distribution reconstruction
+\todoi{Ссылки на работы с количественными оценками преимуществ детектора СФЕРА перед массивами наземных детекторов типа Тунки: https://doi.org/10.3103/S1062873811030166~\cite{Gal11}, работа Чудакова~\cite{chu74:VKKL74} (Чернов)}
 
 
-\subsection{Direct CL}
+\subsection{Direct Cherenkov light}
 
-Since the central part of the mirror is almost always shadowed by the mosaic and has little value for the light collection it can be used for different purpose.
+In addition to the main method of observing EAS Cherenkov light (reflected from surface) the SPHERE detector can observe direct Cherenkov light hitting it from above. In particular, we are interested in showers with a small zenith arrival angle, for which Cherenkov light can be observed both directly and after reflection. Such hybrid events, albeit rare, can be considered the gold standard, providing cross-validation of the reconstruction of arrival angle and CL LDF normalization. Comparing images of reflected and direct light can also help control snow surface properties as they influence only one of the signals.
 
-The SPHERE-2 detector data contained the registered events from the direct Cherenkov light that got to the detector sensitive element through the gaps between mirror segments. One particular `frame' (2012-3-03559) contained both bright direct and bright reflected Cherenkov light separated by a certain amount of time. Few contained direct CL and faint image of the reflected CL (for example, 2013-3-11638). In case of SPHERE-2 detector the failure of the mirror sheath to stop direct CL was an unwanted situation resulting in more background being registered which in turn required some efforts to filter it out.
+% A single data point with relatively low angular distribution does not provide much data on primary particle energy and type on its own. But since the direct CL will be registered by the same sensitive element within same `frame' the precision of time measurements is expected be up to 3--5 ns. This timing information will significantly increase the precision of the primary particle arrival direction since the delay between the arrivals of the direct and reflected CL strongly depend on the EAS zenith angle. The measured total flux of the direct CL can also provide constrains on the primary particle energy and axis location. In combination with CL LDF reconstructed from the reflected CL the direct CL form data for the primary particle mass estimation hybrid criteria.
 
-However, in gamma-astronomy the direct Cherenkov light is put to good use. In this project we propose to register direct Cherenkov light by the detector and use obtained data in the analysis. For this purpose the mirror will be turned into a coded aperture for incoming direct Cherenkov light while retaining its reflective properties for registration of reflected Cherenkov light. The accurate selection of the aperture will allow reconstruction of the direct light arrival direction (that is different from EAS arrival direction). In specific cases (near axis cases) the angular distribution of the Cherenkov light at detector level should also be accessible though registered data.
+The idea of the direct CL registration came about by accident. The SPHERE-2 detector data contained several events (informally called `lines'), in which a rather strong signal was registered by several PMTs almost simultaneously. The timing of these light pulses suggested that no on-ground light flash could produce them, because even signals from vertically arriving EAS has a certain time shifts between PMTs due to different distance to their corresponding FOVs. These events, however, could be explained by direct CL penetrating through detector enclosure from above and hitting the PMT mosaic. Moreover, for some `line' events a weak signal from the reflected CL was observed after a time delay corresponding to twice the distance traveled between the detector and the ground at the speed of light.
 
-A single data point with relatively low angular distribution does not provide much data on primary particle energy and type on its own. But since the direct CL will be registered by the same sensitive element within same `frame' the precision of time measurements is expected be up to 3--5 ns. This timing information will significantly increase the precision of the primary particle arrival direction since the delay between the arrivals of the direct and reflected CL strongly depend on the EAS zenith angle. The measured total flux of the direct CL can also provide constrains on the primary particle energy and axis location. In combination with CL LDF reconstructed from the reflected CL the direct CL form data for the primary particle mass estimation hybrid criteria.
+\todoi{Проверить абзац, привести ссылки (если где-то описывалось), возможно картинку с обсуждаемым двойным событием: 2012-3-03559, 2013-3-11888 (Д.А.) Картинка с 2 событиями: стандартным и гибридным}
+
+The SPHERE-2 detector was designed to be opaque from the top to reduce background light contamination. Moreover, it was almost always shadowed by the air balloon from above, and the few direct CL events were registered with highly inclined detector coming out of this shadow. In the proposed drone-borne installation, however, the top of the detector is directly exposed to CL and can be intentionally designed to observe it.
+
+The central part of the detector mirror is almost always shadowed by the mosaic from below and does not participate in the collection of the reflected CL. Therefore, it can can be used as a coded aperture for the direct Cherenkov. The accurate selection of the aperture will allow reconstruction of the direct light arrival direction (that is different from EAS arrival direction). In specific cases (near axis CL) the angular distribution of the Cherenkov light at detector level should also be accessible though the direct CL data.
+
+It should be noted, however, that the idea of the direct CL registration and the possibility of using hybrid events for cross-validation and calibration of the detector is still speculative and more detailed investigation is underway.
+
+\section{The detector}
+\subsection{Detector design}
+
+The detector is a simplified Schmidt scheme telescope without a corrector plate. %The addition of the corrector plate on one hand adds more complexity to mechanical design and additional weight, on the other hand it reduces spherical aberration of the mirror. However, the proposed detector designed benefits from the relatively large light spot on its sensitive element. Therefore, 
+The scheme without the corrector plate is mechanically simpler and has less weight. The uncorrected spherical aberrations produce light spot with size comparable to the size of a pixel and do not affect the measurements. Moreover, the camera is positioned slightly off-focus in order to bring the light spot diameter to a required size.
 
 In minimal implementation of this method the mirror is planned to have a pattern of 1~cm$^2$ holes that are central projections of the pixel centers onto the mirror. Since the detector camera is offset from the focal position of the mirror the flat projection of this pattern back to the camera will be unique for every angle with respect to the variation of the sensitivity across the effective pixel. This in turn will allow reconstruction of the direct CL angular distribution.
 
@@ -122,17 +150,14 @@ Another option is to fill the holes in the mirror with lenses in them to focus l
 
 More options are planned to be evaluated later in the project development.
 
-\section{The detector}
-\subsection{Detector design}
-The detector is a simplified Schmidt scheme telescope without a corrector plate. The addition of the corrector plate on one hand adds more complexity to mechanical design and additional weight, on the other hand it reduces spherical aberration of the mirror. However, the proposed detector designed benefits from the relatively large light spot on its sensitive element. Therefore, the scheme without 
-spherical aberration produces light spot with g
-\todoi{Описание детектора (Подгрудков, Чернов)}.
-\todoi{Описание оптики, электроники,... масса/зеркало/дрон. (Чернов)}
+\todoi{Технические характеристики: радиус кривизны зеркала, диаметр диафрагмы, рабочая высота, диаметр поля хрения, масса и габариты детектора. (Чернов)}
+
 \subsection{Main drone(s)}
 \todoi{Описание основного дрона (Чернов)}.
+
 \subsection{Aux drone}
 \todoi{Вспомогательный дрон. Прозрачность, контроль атмосферы.(Чернов)}
-\todoi{Примеры и графики от СФЕРЫ-2. (Бонвеч)}
+\Russian{Атмосфера является составной частью эксперимента так как её состояние влияет на результаты восстановления параметров ШАЛ связанных с определением химического состава ПКЛ. Основными чувствительными характеристиками являются плотность и прозрачность. Для контроля этих характеристик атмосферы будет использован вспомогательный БПЛА с датчиками давления, температуры, влажности и лазерным лидаром. Датчики давления и температуры позволяют определить плотность атмосферы, а датчики влажности и лидар необходимы для оценки прозрачности. Кроме того, на вспомогательный БПЛА будет установлен диффузный источник световых импульсов на основе ярких светодиодов UV и видимого диапазонов для калибровки отклика детектора ЧС ШАЛ. Также лидар будет использован для контроля отражения от снега.}
 
 \section{Measurements conditions}
 
@@ -143,8 +168,28 @@ Estimation of atmospheric conditions, namely its density profile, is crucial for
 The altitude of the SPHERE detector is not sufficient to fully measure even the lowest part of the atmosphere, but for 2013 SPHERE-2 measurements we used on-board pressure data to constrain possible atmosphere density profiles, given the set of standard profiles from CORSIKA \citep{CORSIKA}.
 
 \todoi{Идея о том, что атмосфера динамична и её нужно промерять постоянно, она меняется от полёта к полёту}
-\todoi{Картинка с измерениями (tele pic. 17)}
-\todoi{Картинка с ФПР ЧС при нескольких разных атмосферах из набора подходящих к точкам (tele pic. 20-21)}
+
+\begin{figure}
+ \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=15pc]{fig17.pdf}%
+    \vspace{-1.0pc}
+    \caption{Mass overburden versus altitude experimental data (points) in each flight and CORSIKA profiles (solid lines with corresponding models numbers).}
+    \todoi{Картинка с измерениями (tele pic. 17)}
+    \label{fig:fig17}
+  \end{minipage}
+\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=15pc]{11d4}%
+    \vspace{-1.0pc}
+    \caption{Sample mean Cherenkov light lateral distribution ratio for CORSIKA atmosphere model
+    pair 11/4. Bin size 50~m $\times$ 50~m. 10~PeV primary protons. Zenith angle 15~$\deg$. Sample volume 30~events.}
+    \todoi{Картинка с ФПР ЧС при нескольких разных атмосферах из набора подходящих к точкам (tele pic. 20-21)}
+\label{fig:4d11}
+\end{minipage}
+\end{figure}
+
 
 % * Написать про важность контроля -- ссылки на работы про это поискать. 
 % * Уникальная возможность измерять состояние нижнего слоя атмосферы прямо на самой установке.
