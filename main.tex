@@ -1,4 +1,5 @@
 % ICRC-2021 
+%
 % Deadline 5 July
 % Maximum 8 pages
 
@@ -75,7 +76,7 @@ Current technical design of the SPHERE project’s new detector is presented. Th
 
 %Vavilov-Cherenkov radiation (or Chereknov light, CL) produced by charge particles of an extensive air shower (EAS) in atmosphere was theoretically predicted by P.M.S.~Blackett in late 1940s~\cite{Blackett1948} and first detected in early 1950s by W.~Galbraith and J.V.~Jelley~\cite{Galbraith1953} and by N.M.~Nesterova and A.E.~Chudakov~\cite{Nesterova1955}. Chudakov, who's centenary is celebrated this year, then developed the cosmic ray (CR) studies technique based on detection of Cherenkov light from EAS in late 1950s~\cite{Chudakov1958,ICRC1960} which few years later became the beginnings of the gamma-astronomy~\cite{Chudakov1962}.
 
-Vavilov-Cherenkov radiation (or Chereknov light, CL) produced by charge particles of an extensive air shower (EAS) in atmosphere was theoretically predicted in late 1940s and first detected in early 1950s. A.E. Chudakov, who's centenary is celebrated this year, then developed the cosmic ray (CR) studies technique based on detection of Cherenkov light from EAS in late 1950s~\cite{ICRC1960} which few years later became the beginnings of the gamma-astronomy~\cite{Chudakov1962}.
+Vavilov-Cherenkov radiation (or Chereknov light, CL) produced by charge particles of an extensive air shower (EAS) in atmosphere was theoretically predicted in late 1940s and first detected in early 1950s. A.E. Chudakov, who's centenary is celebrated this year, then developed the cosmic ray (CR) studies technique based on detection of Cherenkov light from EAS in late 1950s~\cite{ICRC1960} which few years later became the beginnings of the gamma-astronomy.%~\cite{Chudakov1962}.
 
 After A.E. Chudakov's and G.T. Zatsepin's works direct CL became known as an important EAS registration channel. In particular, CL lateral distribution is indicative of the shower development details and can be used to infer both the energy and the mass of the primary particle.%~\cite[e.g.][]{Budnev2013,Knurenko2013}.
 
@@ -242,7 +243,7 @@ Estimation of atmospheric conditions, namely density profile, is crucial for EAS
 
 The SPHERE project is aimed at further development of reflected EAS CL technique CR studies. This requires not only new technical solutions but also some original analysis methods. We highlight our latest developments in this area with remarks on how these affect the design of the proposed detector.
 
-\subsection{CL distribution reconstruction}
+%\subsection{CL distribution reconstruction}
 
 The SPHERE experiment in its events analysis relies on the EAS CL photons distribution. However, since the detector observes a relatively large area with each sensitive element specific analysis approaches were required and were developed for the SPHERE-2 detector. Moreover, the compact detector design allowed to use topological trigger and full recording of signals from each sensitive element, not only from ones that met trigger condition. These `weak' sensitive elements do contain pulses from EAS CL but of low amplitude on the level on background fluctuations. For example in Fig.~\ref{fig:foobar}(a) channels around 60 contain signals below trigger threshold. 
 
@@ -257,7 +258,7 @@ Since the detector is small the actual number of EAS CL photons reaching its sen
 %With the SPHERE-3 optical scheme being very close to the previous implementations, this method is also applicable to the proposed detector. The main difference is greater number of sensitive elements, which leads to increased precision in CL distribution reconstruction, especially in near-axis region.
 
 %Another challenge is due to a relatively non-standard use of SiPMs or PMTs for low intensity flashes registration. 
-Additionally, registration of low intensity light pulses with PMTs or SiPMs has the inherent randomness of the physical processes behind multiplication that play crucial role in output signal formation. The common PMTs of SiPMs applications either go for photons counting modes, where only a fact of photoelectron generation is registered, but not the amplitude of resulting pulse, or for large number of photons registration, both in bright flashes or in low fluxes with long exposures, where large numbers even out random effects to their average values. In the case of low intensity short pulses, e.g. low numbers of photons arriving in peak resolution time, the multiplication factor of the PMT or SiPM should be treated as a random variable with specific distribution function.
+Additionally, registration of low intensity light pulses with PMTs or SiPMs has the inherent randomness of the physical processes behind multiplication that play crucial role in output signal formation. %The common PMTs of SiPMs applications either go for photons counting modes, where only a fact of photoelectron generation is registered, but not the amplitude of resulting pulse, or for large number of photons registration, both in bright flashes or in low fluxes with long exposures, where large numbers even out random effects to their average values. In the case of low intensity short pulses, e.g. low numbers of photons arriving in peak resolution time, the multiplication factor of the PMT or SiPM should be treated as a random variable with specific distribution function.
 
 For photon counts estimation from a recorded anode current impulse we developed a method of statistical deconvolution that allows input information recovery of the linear system with some random qualities from its output treated as a single realization of a random process. After deconvolution, which yields estimation of overall photon count in each time bin, the EAS signal can be separated from the background photons.
 
@@ -265,30 +266,30 @@ For the proposed detector the situation is expected to be slightly different as 
 
 %\todoi{Дописать про ожидаемые отличия SiPM: больший коэффициент усиления -> меньше погрешность округления, что ещё??}
 
-\subsection{Axis, angles, energy}
+%\subsection{Shower parameters estimation}
 
 After the reconstruction of the CL photons distribution all relevant shower parameters can be estimated. This can be done by various methods, generally relying on Bayesian statistics framework.
 
 The primary particle arrival direction coincides with the shower axis orientation and is routinely estimated using the relative signal times in several sensitive elements of the detector with respect to detector geometry. Another possibility, unique for the SPHERE detector, is that the temporal signal structure in a given sensitive element depends on its orientation relative to the shower arrival direction. Thus, it carries additional information about the shower's arrival direction and can be used to improve the accuracy of the procedure \cite{Antonov2020}.
 
-The axis position can be estimated on its own as a point on the ground, from which the LDF decreases monotonously with distance from shower axis. This is a rather simplistic approach, but independent from the assumptions about the LDF shape. A more sophisticated approach may include the axis position as a parameter into the overall LDF shape fitting procedure.
+%The axis position can be estimated on its own as a point on the ground, from which the LDF decreases monotonously with distance from shower axis. This is a rather simplistic approach, but independent from the assumptions about the LDF shape. A more sophisticated approach may include the axis position as a parameter into the overall LDF shape fitting procedure.
 
 Finally, primary particle energy can be estimated from the CL LDF with numerous methods, generally relying on the fact that overall number of Cherenkov photons is approximately proportional to the primary energy. Some of the methods involve analytical LDF approximations \cite[e.g.][]{AlRubaiee2014}, others rely on direct comparison between Monte-Carlo-modelled LDF with an observed values~\cite{Antonov2015}.
 
-\subsection{Primary type}
+%\subsection{Primary type}
 %\todoi{кажется это надо сокращать вплоть до слов "по наклону ФПР, см. поодробности по ссылкам"}
 %Modeling procedure generally follows the approach used in SPHERE-2 experiment. It includes event modeling and image processing.
 %Event modeling incorporates two stages: a) EAS simulation with CORSIKA code including Cherenkov light generation and b) the production of CL images of EAS events in the telescope mosaic. The 1st stage results in a detailed 3D-array of CL photoelecton distribution in coordinates and time delay on the snow for each EAS event. Photoelectons appear due to a special CORSIKA mode enabling account for the PMT efficiency during the shower modeling. At the 2nd stage the shower cores on the snow are evenly spread over a circle of 500 m radius centered under the telescope. Contributions to the mosaic PMTs from every patch of the CL spot on the snow are calculated on photoelectron-by-photoelectron basis.
 
 The primary mass estimation is a remarkably hard problem and no generally agreed upon method is known at the time. Moreover, different experiments report conflicting CR mass compositions in PeV--EeV energy ranges. This makes the problem especially interesting, given the promise of the SPHERE project to refine existing methods using information about near-axis structure of CL LDF.
 
-The main idea of the mass estimation procedure follows previous works, e.g. using the LDF shape \cite{Anokhina2009}. In the SPHERE project the shower mass-sensitive parameter is a CL LDF slope and usually constructed as a ratio of two integrals:
-\begin{equation}
-    \eta = {\int\limits_{r_1}^{r_2}Q(r)r\,dr} \Big / {\int\limits_{r_3}^{r_4}Q(r)r\,dr}
-\end{equation}
+The main idea of the mass estimation procedure follows previous works, e.g. using the LDF shape \cite{Anokhina2009} via area integrals optimized to certain zenith angles and energies. %In the SPHERE project the shower mass-sensitive parameter is a CL LDF slope and usually constructed as a ratio of two integrals:
+%\begin{equation}
+%$    \eta = {\int\limits_{r_1}^{r_2}Q(r)r\,dr} \Big / {\int\limits_{r_3}^{r_4}Q(r)r\,dr}
+%$
+%\end{equation}
 %\marginpar{Не, тут от r1 до r2 и от r3 до r4, а вот то, что r1=0 и r3=2 - это уже конктретный подбор для вертикальных ливней 10 ПэВ}
-Such parameter can be optimized with regard to the shower primary energy, zenith arrival angle, detector altitude and atmosphere model. This is done by varying inner and outer integration radii $r_1, ..., r_4$ to achieve the best possible degree of separation between different primary mass-groups. The exact criteria values for this parameter also depend on the number of mass-groups.
-
+%Such parameter can be optimized with regard to the shower primary energy, zenith arrival angle, detector altitude and atmosphere model. This is done by varying inner and outer integration radii $r_1, ..., r_4$ to achieve the best possible degree of separation between different primary mass-groups. The exact criteria values for this parameter also depend on the number of mass-groups.
 Another possibility to improve the primary mass resolution is the use of the direct CL angular distribution which is proved to be a powerful instrument for this task~\cite{Gal18a}.
 
 Besides optimizing mass-estimation procedure for a given detector altitude and construction, we can do the opposite. With most detector parameters still not fully determined we plan to evaluate the mass separation criteria as a function of detector parameters and choose the best configuration for this task.
